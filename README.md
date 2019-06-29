@@ -1,5 +1,5 @@
 # Thermostat Update
-This script update Z-Wave thermostats entity (e.g. Danfoss 014G0013) state and current temperature
+This script updates Z-Wave thermostat entity (e.g. Danfoss 014G0013) state and current temperature
 from external sensor in the [Home Assistant](https://home-assistant.io/).
 
 This script use Home Assistant [python_script](https://www.home-assistant.io/components/python_script/) component.
@@ -26,5 +26,4 @@ key | optional | type | default | description
 `heat_state` | True | string | `heat` | name of heating state, changing this from default value will broke compatibility with HomeKit
 `idle_state` | True | string | `off` | name of idle state, changing this from default value will broke compatibility with HomeKit
 `idle_heat_temp` | True | float | `8` | temperature value between `idle` and `heat` states
-`state_only` | True | boolean | `false` | with `state_only` set to `true` script will update only
-                          state of the thermostat
+`state_only` | True | boolean | `false` | with `state_only` set to `true` script will update only state of the thermostat
