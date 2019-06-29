@@ -1,5 +1,5 @@
 """
-Update Z-Wave thermostats (e.g. Danfoss 014G0013) state and current temperature
+Updates Z-Wave thermostats (e.g. Danfoss 014G0013) state and current temperature
 from external sensor.
 Arguments:
  - thermostat			- thermostat entity_id (required)
