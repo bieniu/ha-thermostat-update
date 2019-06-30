@@ -31,13 +31,13 @@
          {% if "thermostat" in trigger.entity_id %}
             {{ trigger.entity_id }}
          {% else %}
-            climate.thermostat_{{ trigger.entity_id | replace('sensor.temperature_', '') }}_heating_1
+            climate.thermostat_{{ trigger.entity_id | replace('sensor.temperature_', '') }}
          {% endif %}
       sensor: >-
          {% if "sensor" in trigger.entity_id %}
             {{ trigger.entity_id }}
          {% else %}
-            sensor.temperature_{{ (trigger.entity_id | replace('climate.thermostat_', '')) | replace('_heating_1', '') }}
+            sensor.temperature_{{ (trigger.entity_id | replace('climate.thermostat_', '')) }}
          {% endif %}
 ```
 ## Script arguments
