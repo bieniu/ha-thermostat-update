@@ -11,7 +11,7 @@ data:
   idle_state: 'idle'
   idle_heat_temp: 10
 ```
-## Script configuration
+## Script arguments
 key | optional | type | default | description
 -- | -- | -- | -- | --
 `thermostat` | False | string | | thermostat `entity_id`
