@@ -9,14 +9,45 @@ You can install this script via [HACS](https://custom-components.github.io/hacs/
 Go to [HA community](https://community.home-assistant.io/t/update-current-temperature-for-z-wave-thermostats/32834) for support and help.
 
 ## Configuration example
-```yaml
-service: python_script.thermostat_update
-data:
-  thermostat: climate.thermostat_kitchen
-  sensor: sensor.temperature_kitchen
-  heat_stat: 'auto'
-  idle_state: 'idle'
-  idle_heat_temp: 10
+```yaml- id: update_thermostats
+  alias: 'Update Thermostats'
+  trigger:
+    platform: state
+    entity_id:
+      - climate.thermostat_kitchen
+      - climate.thermostat_bedroom
+      - climate.thermostat_bathroom
+      - sensor.temperature_kitchen
+      - sensor.temperature_bedroom
+      - sensor.temperature_bathroom
+  condition:
+    condition: template
+    value_template: >-
+      {% if "thermostat" in trigger.entity_id and trigger.to_state.attributes.current_temperature == none %}
+         true
+      {% elif "sensor" in trigger.entity_id %}
+         true
+      {% else %}
+         false
+      {% endif %}
+  action:
+    service: python_script.thermostat_update
+    data_template:
+      heat_stat: 'auto'
+      idle_state: 'idle'
+      idle_heat_temp: 10
+      thermostat: >-
+         {% if "thermostat" in trigger.entity_id %}
+            {{ trigger.entity_id }}
+         {% else %}
+            climate.thermostat_{{ trigger.entity_id | replace('sensor.temperature_', '') }}_heating_1
+         {% endif %}
+      sensor: >-
+         {% if "sensor" in trigger.entity_id %}
+            {{ trigger.entity_id }}
+         {% else %}
+            sensor.temperature_{{ (trigger.entity_id | replace('climate.thermostat_', '')) | replace('_heating_1', '') }}
+         {% endif %}
 ```
 ## Script arguments
 key | optional | type | default | description
