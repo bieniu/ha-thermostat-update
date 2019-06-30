@@ -1,6 +1,3 @@
-This script updates Z-Wave thermostat entity (e.g. Danfoss 014G0013) state and current temperature
-from external sensor.
-
 ## Configuration example
 ```yaml
 - id: update_thermostats
