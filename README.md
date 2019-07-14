@@ -1,4 +1,6 @@
 # Thermostat Update
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
+
 This script updates Z-Wave thermostat entity (e.g. Danfoss 014G0013) state and current temperature
 from external sensor in the [Home Assistant](https://home-assistant.io/).
 
