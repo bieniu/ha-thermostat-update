@@ -1,5 +1,8 @@
 # Thermostat Update
+[![GitHub Release][releases-shield]][releases]
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
+[![Community Forum][forum-shield]][forum]
+
 
 This script updates Z-Wave thermostat entity (e.g. Danfoss 014G0013) state and current temperature
 from external sensor in the [Home Assistant](https://home-assistant.io/).
@@ -60,3 +63,10 @@ key | optional | type | default | description
 `idle_state` | True | string | `off` | name of idle state, changing this from default value will broke compatibility with HomeKit
 `idle_heat_temp` | True | float | `8` | temperature value between `idle` and `heat` states
 `state_only` | True | boolean | `false` | with `state_only` set to `true` script will update only state of the thermostat
+`temp_only` | True | boolean | `false` | with `temp_only` set to `true` app will update only `current_temperature` of the thermostat
+
+[releases]: https://github.com/bieniu/ha-thermostat-update/releases
+[releases-shield]: https://img.shields.io/github/release/bieniu/ha-thermostat-update.svg?style=popout
+[forum]: https://community.home-assistant.io/t/update-current-temperature-for-z-wave-thermostats/32834
+[forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=popout
+
