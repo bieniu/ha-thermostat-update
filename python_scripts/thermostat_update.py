@@ -57,7 +57,7 @@ state_only = data.get(ATTR_STATE_ONLY, ATTR_STATE_ONLY_DEFAULT)
 temp_only = data.get(ATTR_TEMP_ONLY, ATTR_TEMP_ONLY_DEFAULT)
 if state_only and temp_only:
     logger.error(
-        "You can't use state_only and temp_only at the same time! " "Ignoring."
+        "You can't use state_only and temp_only at the same time! Ignoring."
     )
     state_only = False
     temp_only = False
@@ -66,12 +66,11 @@ temp = None
 
 if not thermostat_id:
     logger.error(
-        "Expected {} entity_id, got: {}.".format(ATTR_THERMOSTAT, thermostat_id)
-    )
+        "Expected %s entity_id, got: %s.", ATTR_THERMOSTAT, thermostat_id)
 else:
     thermostat = hass.states.get(thermostat_id)
     if thermostat is None:
-        logger.error("Could not get state of {}.".format(thermostat_id))
+        logger.error("Could not get state of %s.", thermostat_id)
     else:
         attributes = thermostat.attributes.copy()
         if not state_only:
@@ -79,15 +78,14 @@ else:
                 try:
                     temp = float(hass.states.get(sensor_id).state)
                 except (ValueError, TypeError):
-                    logger.error("Could not get state of {}.".format(sensor_id))
+                    logger.error("Could not get state of %s", sensor_id)
                 if temp is None:
-                    logger.error("Could not get state of {}.".format(sensor_id))
+                    logger.error("Could not get state of %s.", sensor_id)
                 else:
                     attributes[ATTR_CURRENT_TEMP] = temp
             else:
                 logger.error(
-                    "Expected {} entity_id, got: {}.".format(ATTR_SENSOR, sensor_id)
-                )
+                    "Expected %s entity_id, got: %s.", ATTR_SENSOR, sensor_id)
         if not temp_only:
             attributes[ATTR_OPERATION_LIST] = [heat_state, idle_state]
         if temp_only:
