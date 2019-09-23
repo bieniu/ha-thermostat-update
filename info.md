@@ -24,7 +24,7 @@
   action:
     service: python_script.thermostat_update
     data_template:
-      heat_stat: 'auto'
+      heat_state: 'auto'
       idle_state: 'idle'
       idle_heat_temp: 10
       thermostat: >-
@@ -40,6 +40,26 @@
             sensor.temperature_{{ (trigger.entity_id | replace('climate.thermostat_', '')) }}
          {% endif %}
 ```
+
+## Configuration example for state only update
+```yaml
+- id: update_thermostats
+  alias: 'Update Thermostats'
+  trigger:
+    platform: state
+    entity_id:
+      - climate.thermostat_kitchen
+      - climate.thermostat_bedroom
+      - climate.thermostat_bathroom
+  action:
+    service: python_script.thermostat_update
+    data_template:
+      heat_state: 'auto'
+      idle_state: 'idle'
+      idle_heat_temp: 10
+      thermostat: '{{ trigger.entity_id }}'
+```
+
 ## Script arguments
 key | optional | type | default | description
 -- | -- | -- | -- | --

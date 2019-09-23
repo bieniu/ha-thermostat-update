@@ -40,16 +40,16 @@ ATTR_HVAC_MODES = "hvac_modes"
 ATTR_HVAC_MODE = "hvac_mode"
 ATTR_TEMPERATURE = "temperature"
 
-ATTR_HEAT_STATE_DEFAULT = "heat"
-ATTR_IDLE_STATE_DEFAULT = "off"
+HVAC_HEAT = "heat"
+HVAC_OFF = "off"
 ATTR_IDLE_HEAT_TEMP_DEFAULT = 8
 ATTR_STATE_ONLY_DEFAULT = False
 ATTR_TEMP_ONLY_DEFAULT = False
 
 thermostat_id = data.get(ATTR_THERMOSTAT)
 sensor_id = data.get(ATTR_SENSOR)
-heat_state = data.get(ATTR_HEAT_STATE, ATTR_HEAT_STATE_DEFAULT)
-idle_state = data.get(ATTR_IDLE_STATE, ATTR_IDLE_STATE_DEFAULT)
+heat_state = data.get(ATTR_HEAT_STATE, HVAC_HEAT)
+idle_state = data.get(ATTR_IDLE_STATE, HVAC_OFF)
 idle_heat_temp = float(data.get(ATTR_IDLE_HEAT_TEMP, ATTR_IDLE_HEAT_TEMP_DEFAULT))
 state_only = data.get(ATTR_STATE_ONLY, ATTR_STATE_ONLY_DEFAULT)
 temp_only = data.get(ATTR_TEMP_ONLY, ATTR_TEMP_ONLY_DEFAULT)
