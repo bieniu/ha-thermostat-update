@@ -28,8 +28,6 @@ data:
   idle_heat_temp: 10
   state_only: false
 """
-VERSION = "0.3.3"
-
 ATTR_THERMOSTAT = "thermostat"
 ATTR_SENSOR = "sensor"
 ATTR_HEAT_STATE = "heat_state"
@@ -38,8 +36,8 @@ ATTR_IDLE_HEAT_TEMP = "idle_heat_temp"
 ATTR_STATE_ONLY = "state_only"
 ATTR_TEMP_ONLY = "temp_only"
 ATTR_CURRENT_TEMP = "current_temperature"
-ATTR_OPERATION_LIST = "operation_list"
-ATTR_OPERATION_MODE = "operation_mode"
+ATTR_HVAC_MODES = "hvac_modes"
+ATTR_HVAC_MODE = "hvac_mode"
 ATTR_TEMPERATURE = "temperature"
 
 ATTR_HEAT_STATE_DEFAULT = "heat"
@@ -56,17 +54,14 @@ idle_heat_temp = float(data.get(ATTR_IDLE_HEAT_TEMP, ATTR_IDLE_HEAT_TEMP_DEFAULT
 state_only = data.get(ATTR_STATE_ONLY, ATTR_STATE_ONLY_DEFAULT)
 temp_only = data.get(ATTR_TEMP_ONLY, ATTR_TEMP_ONLY_DEFAULT)
 if state_only and temp_only:
-    logger.error(
-        "You can't use state_only and temp_only at the same time! Ignoring."
-    )
+    logger.error("You can't use state_only and temp_only at the same time! Ignoring.")
     state_only = False
     temp_only = False
 
 temp = None
 
 if not thermostat_id:
-    logger.error(
-        "Expected %s entity_id, got: %s.", ATTR_THERMOSTAT, thermostat_id)
+    logger.error("Expected %s entity_id, got: %s.", ATTR_THERMOSTAT, thermostat_id)
 else:
     thermostat = hass.states.get(thermostat_id)
     if thermostat is None:
@@ -84,17 +79,16 @@ else:
                 else:
                     attributes[ATTR_CURRENT_TEMP] = temp
             else:
-                logger.error(
-                    "Expected %s entity_id, got: %s.", ATTR_SENSOR, sensor_id)
+                logger.error("Expected %s entity_id, got: %s.", ATTR_SENSOR, sensor_id)
         if not temp_only:
-            attributes[ATTR_OPERATION_LIST] = [heat_state, idle_state]
+            attributes[ATTR_HVAC_MODES] = [heat_state, idle_state]
         if temp_only:
             state = hass.states.get(thermostat_id).state
         else:
             if float(attributes[ATTR_TEMPERATURE]) > idle_heat_temp:
                 state = heat_state
-                attributes[ATTR_OPERATION_MODE] = heat_state
+                attributes[ATTR_HVAC_MODE] = heat_state
             else:
                 state = idle_state
-                attributes[ATTR_OPERATION_MODE] = idle_state
+                attributes[ATTR_HVAC_MODE] = idle_state
         hass.states.set(thermostat_id, state, attributes)
